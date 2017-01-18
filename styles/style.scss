@@ -1,0 +1,18 @@
+//Structure is based on ITCSS
+
+// Settings – font, colors definitions, etc.
+@import "_partials/ui";
+
+//Tools – globally used mixins and functions
+@import "_partials/mixins";
+
+//Generic – reset and/or normalize styles, box-sizing definition, etc.
+@import "_partials/reset";
+
+//Elements – styling for bare HTML elements (like H1, A, etc.). These come with default styling from the browser so we can redefine them here.
+
+//Objects – class-based selectors which define undecorated design patterns, for example media object known from OOCSS
+
+//Components – specific UI components. This is where majority of our work takes place and our UI components are often composed of Objects and Components
+
+//Trumps – utilities and helper classes with ability to override anything which goes before in the triangle, eg. hide helper class
