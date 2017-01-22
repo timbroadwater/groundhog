@@ -9,14 +9,48 @@
   <meta name="author" content="Broadwater, Davis, and Voller">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="styles/style.css">
+
+  <link rel="stylesheet" href="styles/skeleton.css">
+  <link rel="stylesheet" href="styles/vollerStyles.css">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Reenie+Beanie" rel="stylesheet">
+
+
+
 </head>
 
 <!-- Body Starts Here -->
 <body>
-	<h1>The Groundhog</h1>
-	<img src="img/groundhog.jpg" alt="Groundhog">
-	<p>Punxsutawney Phil is a rat-bastard!</p>
+<div class="container">
+
+  <h1>Groundhog Day is on February 2nd each year.</h1>
+  <h2 class="splashTagline">Find out how Punxsutawney Phil has been treating your town:</h2>
+
+<div id="zipCodeForm">
+<form>
+  <input type="text" placeholder="ZIP CODE">
+  <button class="button-primary">Submit</button>
+</form>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="six columns">
+    <h3>Punxsutawney Phil is a rat-bastard!</h3>
+
+<!-- Google Chart -->
+  <div id="chart_div"></div>
+  </div>
+  
+
+  <div class="six columns">
+	   <img src="img/groundhog.jpg" alt="Groundhog" class="u-max-full-width groundhogImg">
+  </div>
+</div>
+
+	 
 
 
 
@@ -30,5 +64,56 @@
   <!-- JavaScript -->
   <script src="js/functions.js"></script>
   <script src="js/scripts.js"></script>
+  </div>
+
+<!--Google Chart -->
+  <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Prediction');
+        data.addColumn('number', 'Count');
+        data.addRows([
+          ['Wrong by 5 or more degrees', 3],
+          ['Wrong by 5 or less degrees', 1],
+          ['About right', 1],
+          ['Right On', 1],
+        ]);
+
+        // Set chart options
+        var options = {
+        pieHole: 0.3,
+        backgroundColor: '#444444',
+        chartArea:{left:0,top:0,width:400,height:400},
+        enableInteractivity: false,
+        fontSize: 24,
+        legend:{position:'bottom',textStyle:{color:'white'}},
+        fontName:'Reenie Beanie',
+        
+                      };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+
+        //Get an image of the chart to show in social media shares.. not working right now
+        var chartImgURL = chart.getImageURI();
+        document.getElementById("chartImgURLDiv").innerHTML = "test";
+      }
+    </script>
+
 </body>
 </html>
