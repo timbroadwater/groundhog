@@ -12,9 +12,10 @@
 
   <link rel="stylesheet" href="styles/skeleton.css">
   <link rel="stylesheet" href="styles/vollerStyles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Reenie+Beanie" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Raleway:300" rel="stylesheet">
 
 
 
@@ -24,33 +25,47 @@
 <body>
 <div class="container">
 
-  <h1>Groundhog Day is on February 2nd each year.</h1>
-  <h2 class="splashTagline">Find out how Punxsutawney Phil has been treating your town:</h2>
+  <h2 class="splashTagline">Each year on February 2,<br>Puxsutawney Phil makes a prediction:<br>Early Spring or 6 More Weeks of Winter</h2>
+  <h1>Find out if Phil has been lying to your town:</h1>
 
 <div id="zipCodeForm">
 <form>
-  <input type="text" placeholder="ZIP CODE">
-  <button class="button-primary">Submit</button>
+  <input id="zip_code_box" type="number" placeholder="ZIPCODE">
+  <button type="button" id="zip_submit_button" class="button-primary">Submit</button>
 </form>
 </div>
 
 <hr>
 
-<div class="row">
-  <div class="six columns">
-    <h3>Punxsutawney Phil is a rat-bastard!</h3>
+    <div id="location_phrase_div">For <div id="location_name_div">Morgantown, WV</div>,<br> Punxsutawney Phil is a</div>
+    <h1 id="phil_descriptor">LYING RAT BASTARD</h1>
 
-<!-- Google Chart -->
-  <div id="chart_div"></div>
-  </div>
-  
+<div class="row animated slideInUp">
+  <div class="six columns">
+
+
+    <!-- Groundhog Image -->
+    <img src="img/groundhog.jpg" alt="Groundhog" class="u-max-full-width groundhogImg animated rotateIn">
+    </div>
 
   <div class="six columns">
-	   <img src="img/groundhog.jpg" alt="Groundhog" class="u-max-full-width groundhogImg">
+	   
+     <!-- Google Chart -->
+  <div id="chart_wrap"><div id="chart_div" class="animated rotateIn"></div></div>
+  <p>Phil predicted:</p>
+  <ul>
+  <li>Early Spring, but it was much colder than average</li>
+  <li>Long Winter, but it was much warmer than average</li>
+  </ul>
   </div>
+
 </div>
 
-	 
+<div class="row">
+<div class="twelve columns">
+  
+</div>
+</div>
 
 
 
@@ -66,7 +81,29 @@
   <script src="js/scripts.js"></script>
   </div>
 
-<!--Google Chart -->
+<!-- See if zip code box is empty on Submit button click -->
+<script type="text/javascript">
+$('#zip_submit_button').click(function() {
+  checkingForZip();
+});
+
+$("#zip_code_box").on('webkitAnimationEnd mozAnimationEnd animationend', 
+  function() {
+    $("#zip_code_box").removeClass("animated shake");});
+
+function checkingForZip() {
+    var zipCodeBox =  $.trim( $('input[type=number]').val() )
+    if (zipCodeBox == "") {
+        $('#zip_code_box').addClass('animated shake');
+    }
+}
+</script>
+
+<!--Google Chart... should probably put this in separate file -->
+
+  <!-- Throttled resize - make the Google Chart responsive -->
+  <script type="text/javascript" src="https://rawgithub.com/louisremi/jquery-smartresize/master/jquery.throttledresize.js"></script>
+
   <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -76,6 +113,11 @@
 
       // Set a callback to run when the Google Visualization API is loaded.
       google.charts.setOnLoadCallback(drawChart);
+
+      // Resize the chart when the window is resized (pure juicy responsiveness)
+      $(window).on("throttledresize", function (event) {
+        drawChart();
+      });
 
       // Callback that creates and populates a data table,
       // instantiates the pie chart, passes in the data and
@@ -87,22 +129,23 @@
         data.addColumn('string', 'Prediction');
         data.addColumn('number', 'Count');
         data.addRows([
-          ['Wrong by 5 or more degrees', 3],
-          ['Wrong by 5 or less degrees', 1],
-          ['About right', 1],
-          ['Right On', 1],
+          ['Wrong by 5 or more degrees', 10],
+          ['Wrong by 5 or less degrees', 19],
+          ['About right', 33],
+          ['Right On', 7],
         ]);
 
         // Set chart options
         var options = {
-        pieHole: 0.3,
+        pieHole: 0.4,
+        legend: 'none',
+        width: '100%',
+        height: '100%',
         backgroundColor: '#444444',
-        chartArea:{left:0,top:0,width:400,height:400},
+        chartArea:{left:'2%',top:'2%',width:'88%',height:'88%'},
         enableInteractivity: false,
-        fontSize: 24,
-        legend:{position:'bottom',textStyle:{color:'white'}},
-        fontName:'Reenie Beanie',
-        
+        fontName:'Alfa Slab One',
+        pieSliceTextStyle:{fontSize: 10},
                       };
 
         // Instantiate and draw our chart, passing in some options.
@@ -110,8 +153,9 @@
         chart.draw(data, options);
 
         //Get an image of the chart to show in social media shares.. not working right now
-        var chartImgURL = chart.getImageURI();
-        document.getElementById("chartImgURLDiv").innerHTML = "test";
+        //var chartImgDiv = document.getElementById("chart_div");
+        //google.visualization.events.addListener(chart, 'ready', function () {
+        //chartImgDiv.innerHTML = '<img src="' + chart.getImageURI() + '" alt="accuracy chart" class="u-max-full-width"">';});
       }
     </script>
 

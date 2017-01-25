@@ -1,13 +1,29 @@
+/* Global CSS */
+
 body {
-	font-family: 'Reenie Beanie', Helvetica, Arial, sans-serif;
+	font-family: 'Raleway', Helvetica, Arial, sans-serif;
 	background-color: #444444;
 	color: white;
+	letter-spacing: 0.4em;
 
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.container {
+	padding-top: 20px;
+}
+
 h1 {
+	font-family: 'Alfa Slab One', Helvetica, Arial, sans-serif;
 	text-align: center;
-	line-height: 90%;
+	line-height: 150%;
+	letter-spacing: 0.05em;
 }
 
 h2 {
@@ -16,17 +32,57 @@ h2 {
 	margin-right: auto;
 }
 
+button {
+	transition: 500ms;
+	-webkit-transition: 500ms;
+}
+
+/* Landing Page CSS */
+
 .splashTagline {
-	font-size: 2em;
-	max-width: 60%;
-	line-height: 90%;
+	font-size: 1.5em;
+	max-width: 70%;
+	line-height: 150%;
+	letter-spacing: 0.2em;
 }
 
 #zipCodeForm {
-	max-width: 299px;
+	max-width: 499px;
 	margin-left: auto;
 	margin-right: auto;
 }
+
+#zip_code_box {
+	font-size: 4em;
+	height: 100%;
+	width: 100%;
+	font-family: 'Alfa Slab One', Helvetica, Arial, sans-serif;
+	letter-spacing: 0.3em;
+	text-align: center;
+
+}
+
+#zip_submit_button {
+	width: 100%;
+	font-size: 1em;
+	height: 80px;
+}
+
+/* Text overlays on chart  */
+g text {
+	
+	display: visible;
+	overflow: visible;
+	font-size: 1.7em;
+	letter-spacing: 0.01em;
+
+}
+
+g {
+	overflow: visible;
+}
+
+/* Results Page CSS */
 
 .groundhogImg {
 	display: block;
@@ -36,11 +92,27 @@ h2 {
 	border-radius: 50%;
 	}
 
-button {
-	transition: 500ms;
-	-webkit-transition: 500ms;
+#location_name_div {
+		display: inline;
+	}
+
+#location_phrase_div {
+	text-align: center;
 }
 
+#chart_wrap {
+    position: relative;
+    padding-bottom: 100%;
+    height: 0;
+    overflow: hidden;
+}
 #chart_div {
-	height: 600px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    height:100%;
+    animation-delay: 0.3s;
+    -webkit-animation-delay: 0.3s;
+    -moz-animation-delay: 0.3s;
 }
