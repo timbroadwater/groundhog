@@ -32,9 +32,30 @@ h2 {
 	margin-right: auto;
 }
 
-button {
+h3 {
+	text-align: center;
+}
+
+button.button-primary {
+	background-color: #0D3F34;
 	transition: 500ms;
 	-webkit-transition: 500ms;
+	border-color: #ffffff;
+	cursor: pointer;
+}
+
+button.button-primary:hover {
+	background-color: #30685B;
+	border-color: #f1f1f1;
+	cursor: pointer;
+}
+
+button.button-primary:focus {
+	background-color: #194e3d;
+	transition: 500ms;
+	-webkit-transition: 500ms;
+	border-color: #ffffff;
+	cursor: pointer;
 }
 
 /* Landing Page CSS */
@@ -69,6 +90,23 @@ button {
 }
 
 /* Text overlays on chart  */
+#accuracy_label {
+	position: absolute;
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin-left: 37%;
+	margin-right: 30%;
+	width: 10%;
+	margin-top: 40%;
+	z-index: 1;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 4.2em;
+	font-family: 'Alfa Slab One', Helvetica, Arial, sans-serif;;
+}
+
 g text {
 	
 	display: visible;
@@ -81,6 +119,11 @@ g text {
 g {
 	overflow: visible;
 }
+
+div.google-visualization-tooltip { 
+	pointer-events: none;
+	line-height: 1.4em;
+		 }
 
 /* Results Page CSS */
 
@@ -116,4 +159,8 @@ g {
     animation-delay: 0.3s;
     -webkit-animation-delay: 0.3s;
     -moz-animation-delay: 0.3s;
+}
+
+#chart_div {
+	letter-spacing: 0.1em;
 }
