@@ -36,7 +36,7 @@ h3 {
 	text-align: center;
 }
 
-button.button-primary {
+input[type="submit"].button-primary {
 	background-color: #0D3F34;
 	transition: 500ms;
 	-webkit-transition: 500ms;
@@ -44,13 +44,13 @@ button.button-primary {
 	cursor: pointer;
 }
 
-button.button-primary:hover {
+input[type="submit"].button-primary:hover {
 	background-color: #30685B;
 	border-color: #f1f1f1;
 	cursor: pointer;
 }
 
-button.button-primary:focus {
+input[type="submit"].button-primary:focus {
 	background-color: #194e3d;
 	transition: 500ms;
 	-webkit-transition: 500ms;

@@ -34,41 +34,10 @@
   <h1>Find out if Phil has been lying to your town:</h1>
 
 <div id="zipCodeForm">
-<form>
+<form onsubmit="return checkingForZip()">
   <input id="zip_code_box" type="number" placeholder="ZIPCODE">
-  <button type="button" id="zip_submit_button" class="button-primary">Submit</button>
+  <input type="submit" id="zip_submit_button" class="button-primary" value="SUBMIT">
 </form>
-</div>
-
-<hr>
-
-    <div id="location_phrase_div">For <div id="location_name_div">Morgantown, WV</div>,<br> Punxsutawney Phil is a</div>
-    <h1 id="phil_descriptor">LYING RAT BASTARD</h1>
-
-<div class="row animated slideInUp">
-
-<!-- Google Chart -->
-  <div class="six columns">
-  <h3>OVERALL ACCURACY</h3>
-  <div id="chart_wrap"><p id="accuracy_label">14%</p><div id="chart_div" class="animated rotateIn"></div></div>
-  <p>Phil predicted:</p>
-  <ul>
-  <li>Early Spring, but it was much colder than average</li>
-  <li>Long Winter, but it was much warmer than average</li>
-  </ul>
-  </div>
-
-<!-- Groundhog Image -->
-  <div class="six columns">
-    <img src="img/groundhog.jpg" alt="Groundhog" class="u-max-full-width groundhogImg animated rotateIn">
-  </div>
-
-</div>
-
-<div class="row">
-<div class="twelve columns">
-  
-</div>
 </div>
 
 
@@ -85,10 +54,14 @@
   <script src="js/scripts.js"></script>
   </div>
 
-<!-- See if zip code box is empty on Submit button click -->
+<!-- See if zip code box is empty on Submit button click. If not, pass the zip to the results.html page -->
 <script type="text/javascript">
-$('#zip_submit_button').click(function() {
-  checkingForZip();
+
+//Disable default form submit behavior
+$(document).ready(function() {
+    $("#zipCodeForm").submit(function(event) {
+        event.preventDefault();
+    });
 });
 
 $("#zip_code_box").on('webkitAnimationEnd mozAnimationEnd animationend', 
@@ -99,79 +72,12 @@ function checkingForZip() {
     var zipCodeBox =  $.trim( $('input[type=number]').val() )
     if (zipCodeBox == "") {
         $('#zip_code_box').addClass('animated shake');
+        return false;
+    } else {
+      self.location=self.location.protocol+'//'+self.location.host+self.location.pathname+'/results.html'+'?'+zipCodeBox;
     }
 }
 </script>
-
-<!-- Setting up variables to pass into chart -->
-<script type="text/javascript">
-var correctNumberYears = 17;
-var slightlyWrongNumberYears = 4;
-var veryWrongNumberYears = 80;
-var superWrongNumberYears = 19;
-</script>
-
-<!--Google Chart... should probably put this in separate file -->
-
-  <!-- Throttled resize - make the Google Chart responsive -->
-  <script type="text/javascript" src="https://rawgithub.com/louisremi/jquery-smartresize/master/jquery.throttledresize.js"></script>
-
-  <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-
-      // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
-
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart);
-
-      // Resize the chart when the window is resized (pure juicy responsiveness)
-      $(window).on("throttledresize", function (event) {
-        drawChart();
-      });
-
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
-
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Prediction');
-        data.addColumn('number', 'Count');
-        data.addRows([
-          ['SUPER WRONG - Phil was wrong, and temps were over 5 degreesF different from the average', superWrongNumberYears],
-          ['VERY WRONG Phil\'s prediction was wrong, and temps', veryWrongNumberYears],
-          ['Wrong by <1 degree', slightlyWrongNumberYears],
-          ['Correct', correctNumberYears],
-        ]);
-
-        // Set chart options
-        var options = {
-        pieHole: 0.4,
-        legend: 'none',
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#444444',
-        chartArea:{left:'2%',top:'2%',width:'94%',height:'94%'},
-        enableInteractivity: true,
-        tooltip: {isHtml: true, textStyle: {color: '#444444', fontName: 'Raleway', fontSize: '16'},
-         showColorCode: true},
-        pieSliceText: 'none',
-        slices: {0: {color: '#830606'}, 1: {color: '#C53D3D'}, 2: {color: '#E86A6A'}, 3: {color: '#056905'}}
-                      };
-
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-
-        //Get an image of the chart to show in social media shares.. not working right now
-        //var chartImgDiv = document.getElementById("chart_div");
-        //google.visualization.events.addListener(chart, 'ready', function () {
-        //chartImgDiv.innerHTML = '<img src="' + chart.getImageURI() + '" alt="accuracy chart" class="u-max-full-width"">';});
-      }
-    </script>
 
 </body>
 </html>
